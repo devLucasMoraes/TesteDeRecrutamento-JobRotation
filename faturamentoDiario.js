@@ -15,25 +15,34 @@ let menorFaturamento = data[0];
 let maiorFaturamento = data[0];
 let somaFaturamento = 0;
 let diasAcimaDaMedia = 0;
+let qtdeDiasUteis = 0;
 
 for (let i = 0; i < data.length; i++) {
-  if (data[i] < menorFaturamento) {
+  const valorDoDiaAtual = data[i].valor
+
+  if(valorDoDiaAtual) {
+    qtdeDiasUteis++
+  }
+  
+  if (valorDoDiaAtual && (valorDoDiaAtual < menorFaturamento.valor)) {
     menorFaturamento = data[i];
   }
-  if (data[i] > maiorFaturamento) {
+
+  if (valorDoDiaAtual && (valorDoDiaAtual > maiorFaturamento.valor)) {
     maiorFaturamento = data[i];
   }
-  somaFaturamento += data[i];
+
+  somaFaturamento += valorDoDiaAtual;
 }
 
-const mediaFaturamento = somaFaturamento / (data.length - 2);
+const mediaFaturamento = somaFaturamento / qtdeDiasUteis;
 
 for (let i = 0; i < data.length; i++) {
-  if (data[i] > mediaFaturamento) {
+  if (data[i].valor > mediaFaturamento) {
     diasAcimaDaMedia++;
   }
 }
 
-console.log('Menor faturamento: ' + menorFaturamento);
-console.log('Maior faturamento: ' + maiorFaturamento);
+console.log('Menor faturamento: ' + menorFaturamento.valor);
+console.log('Maior faturamento: ' + maiorFaturamento.valor);
 console.log('Dias acima da média: ' + diasAcimaDaMedia);
